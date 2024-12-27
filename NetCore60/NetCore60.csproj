@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\DTO\" />
+    <Folder Include="dto\DTO\" />
   </ItemGroup>
 
 </Project>
