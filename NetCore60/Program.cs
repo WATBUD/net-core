@@ -133,8 +133,8 @@ builder.Services.AddSwaggerGen(options =>
 
     //options.DocumentFilter<DisableSchemaGenerationFilter>();
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "NetCore60.xml")); // XML 注释文件路径
-    options.SchemaFilter<DateOnlySchemaFilter>(); // 自定义日期字段的显示方式
-    options.SchemaFilter<RemoveCreatedAtPropertySchemaFilter>();
+    //options.SchemaFilter<DateOnlySchemaFilter>(); // custom date formate
+    //options.SchemaFilter<RemoveCreatedAtPropertySchemaFilter>();
 
     // Get and display Swashbuckle version
     //var swaggerGenVersion = typeof(SwaggerGenerator).Assembly.GetName().Version;
@@ -177,5 +177,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseStaticFiles();
 app.Run();
 

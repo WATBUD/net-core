@@ -23,17 +23,20 @@ namespace NetCoreSpace.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "G_User")]
-    public class UsersController : ControllerBase
+    public class usersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly RNDatingService _databaseService;
         private readonly UsersService _usersService;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public UsersController(ApplicationDbContext context, RNDatingService databaseService, UsersService usersService) // Constructor
+
+        public usersController(ApplicationDbContext context
+            ,UsersService usersService
+            ,IWebHostEnvironment hostingEnvironment) 
         {
-            _databaseService = databaseService;
             _usersService = usersService;
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
 
         }
         ///// <summary> 
@@ -42,7 +45,7 @@ namespace NetCoreSpace.Controllers
         //[HttpPost("CreateUser")]
         //public IActionResult Create([Required] string _account, [Required] string _password, [Required] string _email)
         //{
-        //    //string newUserId = _databaseService.InsertUserAccount(_account, _password, _email);
+        //    //string newUserId = _context.InsertUserAccount(_account, _password, _email);
         //    return Ok("");
         //    //return CreatedAtAction(nameof(GetUserById), new { id = newUserId }, item);
         //}
@@ -52,8 +55,8 @@ namespace NetCoreSpace.Controllers
         /// </summary>
         /// <returns></returns> 
         [Authorize]
-        [HttpGet("GetUserInfo")]
-        public async Task<ResponseDTO> GetUserInfo()
+        [HttpGet("get-user-info")]
+        public async Task<ResponseDTO> getUserInfo()
         {
             string? userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -82,67 +85,10 @@ namespace NetCoreSpace.Controllers
         ///// <returns>回應 DTO</returns> 
         ///// <remarks>注意事項：此 API 用於登入，請確保傳入有效的帳號與密碼。</remarks> 
         [HttpPost("login")]
-        public async Task<ResponseDTO> Login([FromBody] LoginDTO model)
+        public async Task<ResponseDTO> userLogin([FromBody] LoginDTO model)
         {
             return await _usersService.Login(model);
         }
-
-
-
-        ///// <summary> 
-        /////  test_jwt_token
-        ///// </summary>
-        //[HttpPost("test_jwt_token")]
-        //[Obsolete]
-        //public IActionResult GetJWTToken()
-        //{
-        //    var token = JsonWebToken.GenerateJwtToken(10);
-        //    return Ok(new { token });
-        //}
-
-        ///// <summary> 
-        /////  驗證Token
-        ///// </summary>
-        //[HttpPost("ValidateToken")]
-        //public IActionResult ValidateToken([Required] string token)
-        //{
-        //    var user = TokenStore.FindUserIdByToken(token);
-        //    if (user == null)
-        //    {
-        //        // Return a response indicating the token does not exist
-        //        return Ok("token does not exist");
-        //    }
-        //    else
-        //    {
-        //        // Return the user ID if the token exists
-        //        return Ok(user);
-        //    }
-        //}
-
-
-        //[Authorize]
-        //[HttpPut("ModifyPassword")]
-        //public async Task<ResponseDTO> ModifyPassword([FromBody] ChangePasswordDTO model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var errorMessages = ModelState.Values
-        //                                      .SelectMany(v => v.Errors)
-        //                                      .Select(e => e.ErrorMessage)
-        //                                      .ToList();
-        //        return ErrorResponse("Error", new { message = string.Join(", ", errorMessages) });
-        //    }
-        //    var userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        //    if (int.TryParse(userId, out int parsedUserId))
-        //    {
-        //        model.UserId = parsedUserId;
-        //    }
-        //    else
-        //    {
-        //        return ErrorResponse("Error", new { message = "Invalid UserId." });
-        //    }
-        //    return await _usersService.ModifyPassword(model);
-        //}
 
         /// <summary>
         /// 上傳圖片到伺服器
@@ -150,24 +96,49 @@ namespace NetCoreSpace.Controllers
         /// <remarks>限制最大上傳大小為1MB</remarks>
         /// <param name="file">上傳的圖片文件</param>
         /// <returns>
-        /// 200 - OK，上傳成功
-        /// 400 - Not Found，未找到
+        /// 200 - OK，上傳成功，返回圖片路徑
+        /// 400 - Bad Request，無效的請求或檔案問題
         /// </returns>
-        [HttpPost("UploadImageFileToServer")]
-        public IActionResult UploadImageFileToServer(IFormFile file)
+        [HttpPost("upload-image-file-to-server")]
+        public async Task<ResponseDTO> uploadImageFileToServer(IFormFile file)
         {
-            string resultMessage= FileHelper.UploadImageFileToServer(file);
-            return Ok(resultMessage);
+            if (file == null || file.Length == 0)
+            {
+                return ErrorResponse("請提供有效的檔案進行上傳。");
+            }
+
+            if (file.Length > 1 * 1024 * 1024) // 檢查檔案大小是否超過 1MB
+            {
+                return ResponseDTO.ErrorResponse("上傳失敗，檔案大小超過限制（1MB）。");
+            }
+
+            try
+            {
+                var uploadResults = await FileHelper.UploadImagesAsync(new List<IFormFile> { file }, _hostingEnvironment.WebRootPath);
+
+                if (uploadResults.Count > 0)
+                {
+                    return ResponseDTO.SuccessResponse(uploadResults);
+                }
+                else
+                {
+                    return ResponseDTO.ErrorResponse("上傳失敗，請檢查檔案格式或伺服器配置。");
+                }
+            }
+            catch (Exception ex)
+            {
+                return ResponseDTO.ErrorResponse($"伺服器內部錯誤：{ex.Message}");
+            }
         }
 
 
 
-        [HttpGet("GetAssignIPInfo")]
-        public async Task<IActionResult> GetAssignIPInfoAsync([Required]string ipAddress)
+        [HttpGet("get-assign-ip-info")]
+        public async Task<IActionResult> getAssignIPInfoAsync([Required]string ipAddress)
         {
             try
             {
-                var httpClientService = new HttpClientService();
+                var httpClientService = new http_client_service();
                 string response;
                 response = await httpClientService.GetNordVPNDataAsync(ipAddress);      
                 if (response != null)
@@ -187,8 +158,8 @@ namespace NetCoreSpace.Controllers
 
         }
 
-        [HttpGet("GetClientIP")]
-        public async Task<IActionResult> GetClientIPAsync()
+        [HttpGet("get-client-ip")]
+        public async Task<IActionResult> getClientIPAsync()
         {
             string ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "IP Address not available";
             //return Content($"User IP Address: {ipAddress}");
@@ -196,7 +167,7 @@ namespace NetCoreSpace.Controllers
             try
             {
 
-                var httpClientService = new HttpClientService();
+                var httpClientService = new http_client_service();
                 string response;
 
                 if (ipAddress == "::1" || ipAddress == "127.0.0.1")
@@ -235,11 +206,11 @@ namespace NetCoreSpace.Controllers
         /// <returns></returns> 
         /// <remarks>注意事項</remarks> 
         /// 
-        [HttpGet("GetTagGroupDetails")]
-        public IActionResult GetTagGroupDetails()
+        [HttpGet("get-tag-group-details")]
+        public async Task<ResponseDTO> getTagGroupDetails()
         {
-            var resultList = _databaseService.GetTagGroupDetails();
-            return Ok(resultList);
+            var resultList = await _context.VTagGroupDetails.ToListAsync();
+            return SuccessResponse(resultList);
         }
 
         /// <summary> 
@@ -250,11 +221,11 @@ namespace NetCoreSpace.Controllers
         /// <returns></returns> 
         /// <remarks>注意事項</remarks> 
         /// 
-        [HttpGet("GetRequestLogs")]
-        public IActionResult GetRequestLogs()
+        [HttpGet("get-request-logs")]
+        public async Task<ResponseDTO> getRequestLogs()
         {
-            var resultList = _databaseService.GetRequestLogs();
-            return Ok(resultList);
+            var screens = await _context.VTagGroupDetails.ToListAsync();
+            return SuccessResponse(screens);
         }
 
 

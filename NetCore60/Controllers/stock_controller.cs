@@ -12,7 +12,7 @@ namespace TodoApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "G_Stocks")]
-    public class StockController : ControllerBase
+    public class stockController : ControllerBase
     {
         private readonly RNDatingService _databaseService;
 
@@ -20,44 +20,16 @@ namespace TodoApi.Controllers
 
 
 
-        public StockController(RNDatingService databaseService) // Constructor
+        public stockController(RNDatingService databaseService) // Constructor
         {
             _databaseService = databaseService;
         }
-
-        //[HttpGet("FetchAndParseJson")]
-        //public async Task<IActionResult> FetchAndParseJson()
-        //{
-        //    try
-        //    {
-
-        //        var getStocksService = new GetStocksService();
-        //        //string response;
-        //        var mylocalip = await getStocksService.FetchAndParseJson();
-        //        return Content($"User IP Address:");
-        //        //if (response != null)
-        //        //{
-        //        //    //string combinedData = $"User IP Address: {ipAddress}\n响应数据：\n{response}";
-        //        //    return Content(response);
-        //        //}
-        //        //else
-        //        //{
-        //        //    return Content("未能获取响应数据。");
-        //        //}
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Content($"发生异常：{ex.Message}");
-        //    }
-
-        //}
 
         /// <summary> 
         ///     除權息預告表
         /// </summary>
         /// 
-        [HttpGet("exDividendNotice")]
+        [HttpGet("ex-dividend-notice")]
         public async Task<IActionResult> exDividendNoticeFormAsync(int limitDays=5,bool isCashDividend=false)
         {
             try
@@ -86,7 +58,7 @@ namespace TodoApi.Controllers
         ///     取得股票五檔
         /// </summary>
         /// 
-        [HttpGet("getFiveLevelsOfStockInformation")]
+        [HttpGet("get-five-levels-of-stock-information")]
         public async Task<IActionResult> getFiveLevelsOfStockInformationAync(string stockCode)
         {
             try
@@ -112,13 +84,11 @@ namespace TodoApi.Controllers
 
         }
 
-
-
         /// <summary> 
         ///     取得三大法人買賣超日報
         /// </summary>
         /// 
-        [HttpGet("getThreeMajorInstitutionalInvestors")]
+        [HttpGet("get-three-major-institutional-investors")]
         public async Task<IActionResult> getThreeMajorInstitutionalInvestors()
         {
             try
@@ -161,7 +131,7 @@ namespace TodoApi.Controllers
         ///     取得最後一次開盤日期
         /// </summary>
         /// 
-        [HttpGet("getTheLatestOpeningDate")]
+        [HttpGet("get-the-latest-opening-date")]
         public async Task<IActionResult> GetTheLatestOpeningDate()
         {
             try
@@ -188,7 +158,7 @@ namespace TodoApi.Controllers
         ///     取得市場開休市日期
         /// </summary>
         /// 
-        [HttpGet("getStockMarketOpeningAndClosingDates")]
+        [HttpGet("get-stock-mmarket-opening-and-closing-dates")]
         public async Task<IActionResult> GetStockMarketOpeningAndClosingDates(bool requestAllData=false)
         {
             try

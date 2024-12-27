@@ -10,10 +10,8 @@ namespace NetCoreSpace.Swagger
     {
         public void Apply(OpenApiSchema model, SchemaFilterContext context)
         {
-            // 在这里检查模型名称和要移除的属性名称
             Type modelType = context.Type;
             if (modelType.FullName != null && modelType.FullName.Contains("NetCore60.Models"))
-            //VUsersDetail
             {
                 if (model.Properties.ContainsKey("createdAt"))
                 {

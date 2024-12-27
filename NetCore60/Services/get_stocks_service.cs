@@ -19,45 +19,12 @@ public class GetStocksService
         _httpClient = new HttpClient();
     }
 
-#pragma warning disable CS8603 // 可能有 Null 參考傳回
+    #pragma warning disable CS8603 // 可能有 Null 參考傳回
 
     public async Task<string> getExDividendNoticeForm(int limitDays, bool isCashDividend = false)
     {
         try
         {
-            // 创建 Chrome WebDriver 实例
-            //var driverService = ChromeDriverService.CreateDefaultService();
-            //using var driver = new ChromeDriver(driverService);
-
-            //try
-            //{
-            //    // 访问初始页面以设置 cookies
-            //    driver.Navigate().GoToUrl("https://www.wantgoo.com/stock/calendar/dividend-right");
-            //    //Thread.Sleep(10000); // 等待页面加载和 JavaScript 执行
-            //    var allCookies = driver.Manage().Cookies.AllCookies;
-            //    //foreach (var cookie in allCookies)
-            //    //{
-            //    //    Console.WriteLine(cookie.Name + ": " + cookie.Value);
-            //    //}
-            //    // 接着访问目标 API
-            //    driver.Navigate().GoToUrl("https://www.wantgoo.com/stock/calendar/dividend-right-data");
-            //    //Thread.Sleep(2000); // 等待数据加载
-
-            //    // 获取页面源代码或进行其他操作
-            //    string pageSource = driver.PageSource;
-            //    return pageSource;
-            //    //Console.WriteLine(pageSource);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine("An error occurred: " + ex.Message);
-            //}
-            //finally
-            //{
-            //    // 关闭浏览器
-            //    driver.Quit();
-            //}
-            //return "enter";
             var apiUrl = "https://kgiweb.moneydj.com/b2brwdCommon/jsondata/63/56/6c/twstockdata.xdjjson?x=afterhours-bulletin0001&revision=2018_07_31_1\r\n";
             var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
 
@@ -241,10 +208,7 @@ public class GetStocksService
         }
     }
 
-
-
-
-   public async Task<string> getTheLatestOpeningDate()
+    public async Task<string> getTheLatestOpeningDate()
     {
         try
         {
@@ -281,7 +245,6 @@ public class GetStocksService
             return "发生异常：" + ex.Message;
         }
     }
-
 
     public async Task<string> getStockMarketOpeningAndClosingDates(bool requestAllData = false)
     {
@@ -327,7 +290,7 @@ public class GetStocksService
         }
     }
 
-    public async Task<string> GetQuoteTimeSalesStore()
+    public async Task<string> getQuoteTimeSalesStore()
     {
         var httpClient = new HttpClient();
         var url = "https://tw.stock.yahoo.com/quote/3231.TW/time-sales"; // 替换成你的 URL
@@ -359,33 +322,6 @@ public class GetStocksService
             Console.WriteLine($"请求错误: {e.Message}");
         }
         return "HTTP请求失败，状态码：";
-    }
-
-    public async Task<string> FetchAndParseJson(string? url = "https://tw.stock.yahoo.com/quote/3231.TW/time-sales")
-    {
-        var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync(url);
-        response.EnsureSuccessStatusCode();
-        var htmlContent = await response.Content.ReadAsStringAsync();
-
-        var htmlDoc = new HtmlDocument();
-        htmlDoc.LoadHtml(htmlContent);
-
-        // Assuming the JSON is stored in a script tag; adjust the XPath as needed
-        var scriptTags = htmlDoc.DocumentNode.SelectNodes("//script");
-        //foreach (var scriptTag in scriptTags)
-        //{
-        //    if (scriptTag.InnerText.Contains("QuoteTimeSalesStore"))
-        //    {
-        //        var json = ExtractJson(scriptTag.InnerText);
-        //        //var jObject = JObject.Parse(json);
-        //        //var selectedToken = jObject.SelectToken(jsonPath);
-        //        //return selectedToken?.ToString(Formatting.Indented);
-        //        return "JSON data not found";
-        //    }
-        //}
-
-        return "JSON data not found";
     }
 
 

@@ -4,11 +4,11 @@ using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-public class HttpClientService
+public class http_client_service
 {
     private readonly HttpClient _httpClient;
 
-    public HttpClientService()
+    public http_client_service()
     {
         _httpClient = new HttpClient();
     }

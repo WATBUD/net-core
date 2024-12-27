@@ -5,7 +5,7 @@ using System;
 namespace NetCoreSpace.Swagger
 {
 
-    public class DateOnlySchemaFilter : ISchemaFilter
+    public class date_only_schema_filter : ISchemaFilter
     {
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {
