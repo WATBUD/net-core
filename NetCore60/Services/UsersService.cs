@@ -1,4 +1,4 @@
-﻿using NetCore60.Models;
+﻿using NetCoreSpace.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using NetCore60.DTO;
+using NetCoreSpace.DTO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using static NetCore60.DTO.ResponseDTO;
+using static NetCoreSpace.DTO.ResponseDTO;
 public class UsersService
 {
     private readonly ApplicationDbContext _context;

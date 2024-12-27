@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NetCore60.Models;
+using NetCoreSpace.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

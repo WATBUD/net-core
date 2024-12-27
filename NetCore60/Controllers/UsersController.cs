@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
-using NetCore60.Models;
-using NetCore60.Services;
+using NetCoreSpace.Models;
+using NetCoreSpace.Services;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.ComponentModel.DataAnnotations;
@@ -13,12 +13,12 @@ using System.Text.Json;
 using Newtonsoft.Json.Linq;
 using System.Numerics;
 using Microsoft.AspNetCore.Authorization;
-using NetCore60.Utilities;
-using NetCore60.DTO;
+using NetCoreSpace.Utilities;
+using NetCoreSpace.DTO;
 using System.Security.Claims;
-using static NetCore60.DTO.ResponseDTO;
+using static NetCoreSpace.DTO.ResponseDTO;
 using Microsoft.EntityFrameworkCore;
-namespace NetCore60.Controllers
+namespace NetCoreSpace.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

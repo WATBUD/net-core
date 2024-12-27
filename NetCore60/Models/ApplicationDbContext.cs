@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace NetCore60.Models;
+namespace NetCoreSpace.Models;
 
 public partial class ApplicationDbContext : DbContext
 {

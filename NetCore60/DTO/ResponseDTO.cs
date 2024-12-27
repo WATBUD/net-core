@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
-namespace NetCore60.DTO
+namespace NetCoreSpace.DTO
 {
     public class ResponseDTO
     {

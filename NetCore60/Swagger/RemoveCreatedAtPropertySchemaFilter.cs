@@ -1,9 +1,9 @@
 ﻿
 using Microsoft.OpenApi.Models;
-using NetCore60.Models;
+using NetCoreSpace.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
-namespace NetCore60.Swagger
+namespace NetCoreSpace.Swagger
 {
 
     public class RemoveCreatedAtPropertySchemaFilter : ISchemaFilter

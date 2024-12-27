@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-namespace NetCore60.Utilities
+namespace NetCoreSpace.Utilities
 {
 
     public static class DataInspectionHelper

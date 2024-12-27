@@ -11,9 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="dto\DTO\**" />
     <Compile Remove="publish-folder\NewFolder\**" />
+    <Content Remove="dto\DTO\**" />
     <Content Remove="publish-folder\NewFolder\**" />
+    <EmbeddedResource Remove="dto\DTO\**" />
     <EmbeddedResource Remove="publish-folder\NewFolder\**" />
+    <None Remove="dto\DTO\**" />
     <None Remove="publish-folder\NewFolder\**" />
   </ItemGroup>
 
@@ -29,10 +33,6 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="dto\DTO\" />
   </ItemGroup>
 
 </Project>

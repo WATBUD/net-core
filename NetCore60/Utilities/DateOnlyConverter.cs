@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace NetCore60.Utilities
+namespace NetCoreSpace.Utilities
 {
     public sealed class DateOnlyJsonConverter : JsonConverter<DateOnly>
     {

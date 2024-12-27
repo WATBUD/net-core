@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetCore60.DTO
+namespace NetCoreSpace.DTO
 {
     /// <summary>
     /// ¥Î¤áµn¤J«H®§

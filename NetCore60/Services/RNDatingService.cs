@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MySqlConnector;
-using NetCore60.DTO;
-using NetCore60.Models;
-using NetCore60.Utilities;
+using NetCoreSpace.DTO;
+using NetCoreSpace.Models;
+using NetCoreSpace.Utilities;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ using System.Security.Principal;
 using System.Threading.Tasks.Dataflow;
 using System.Xml.Linq;
 
-namespace NetCore60.Services
+namespace NetCoreSpace.Services
 {
     public class RNDatingService
     {

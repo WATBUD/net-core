@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetCore60.Models;
-using NetCore60.Services;
+using NetCoreSpace.Models;
+using NetCoreSpace.Services;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;

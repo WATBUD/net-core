@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
-namespace NetCore60.Swagger
+namespace NetCoreSpace.Swagger
 {
 
     public class DateOnlySchemaFilter : ISchemaFilter

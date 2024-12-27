@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using NetCore60.Services;
+using NetCoreSpace.Services;
 using System.Text;
 using System.Threading.Tasks;
 

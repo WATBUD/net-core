@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NetCore60.Models;
+namespace NetCoreSpace.Models;
 
 public partial class User
 {
