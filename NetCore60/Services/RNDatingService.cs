@@ -26,20 +26,6 @@ namespace NetCore60.Services
             _dbContext = dbContext;
         }
 
-        public Object? checkUserBasicInformation(int id)
-        {
-                var userEntity = _dbContext.Users.Where(u => u.UserId == id).Select(data => new
-                {
-                    data.UserAccount,
-                    data.Username,
-                    data.Email,
-                    data.CreatedAt,
-                }).FirstOrDefault();
-                return userEntity; 
-        }
-
-
-
         public List<RequestLog> GetRequestLogs()
         {
                 var userEntity = _dbContext.RequestLogs.ToList();

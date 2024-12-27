@@ -37,11 +37,9 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<VTagGroupDetail> VTagGroupDetails { get; set; }
 
-    public virtual DbSet<VUserRolePermission> VUserRolePermissions { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=127.0.0.1;database=RNDatingDB;user=louis005;password=louis005", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.1.0-mysql"));
+        => optionsBuilder.UseMySql("server=127.0.0.1;database=csharp_db;user=louis005;password=louis005", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.1.0-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -342,23 +340,9 @@ public partial class ApplicationDbContext : DbContext
                 .ToView("V_TagGroupDetail");
 
             entity.Property(e => e.TagGroupId).HasColumnName("tag_group_id");
-            entity.Property(e => e.TagGroupName)
-                .HasMaxLength(10)
-                .HasColumnName("tag_group_name");
-            entity.Property(e => e.TagId)
-                .HasDefaultValueSql("'2'")
-                .HasColumnName("tag_id");
-            entity.Property(e => e.TagName)
-                .HasMaxLength(40)
-                .HasDefaultValueSql("'empty'")
-                .HasColumnName("tag_Name");
-        });
-
-        modelBuilder.Entity<VUserRolePermission>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("v_user_role_permissions");
+            entity.Property(e => e.TagGroupName).HasColumnName("tag_group_name");
+            entity.Property(e => e.TagId).HasColumnName("tag_id");
+            entity.Property(e => e.TagName).HasColumnName("tag_Name");
         });
 
         OnModelCreatingPartial(modelBuilder);
